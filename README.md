@@ -85,3 +85,6 @@ python
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
 >>> bof.run(data, args=[r"c:\users"], format="w")
 ```
+
+## Gotchas
+If a BOF function does not return a value, I raise a warning alerting the user to the fact nothing was returned. I assume this is likely not the intended outcome of an execution, but didn't want to throw hard errors. `If you run a BOF function and receive the no output warning, keep in mind that your args formatting may need defined or may be defined incorrectly` which can cause this issue (specifically using string instead of wide)
