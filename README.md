@@ -88,3 +88,7 @@ python
 
 ## Gotchas
 If a BOF function does not return a value, I raise a warning alerting the user to the fact nothing was returned. I assume this is likely not the intended outcome of an execution, but didn't want to throw hard errors. `If you run a BOF function and receive the no output warning, keep in mind that your args formatting may need defined or may be defined incorrectly` which can cause this issue (specifically using string instead of wide)
+
+## Special Thanks
+* [natesubra](https://github.com/natesubra) - For answering my random questions
+* [trustedsec](https://github.com/trustedsec) - For the COFFLoader I wrapped into my PyBof module (licensing included in src/source)
