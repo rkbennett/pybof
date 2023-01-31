@@ -55,7 +55,7 @@ ext_modules = []
 if sys.platform.startswith("win32"):
     ext_modules = [_bof]
 
-with open("README.md", "r", encoding="utf-8") as f:
+with open("../README.md", "r", encoding="utf-8") as f:
     long_desc = f.read()
 
 setup(
