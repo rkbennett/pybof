@@ -69,7 +69,7 @@ def run(data: bytes, function: str="go", format: str=None, args: list=[], raw: b
                     beaconPack.addWstr(args[index])
             else:
                 # Default types to string and int if format isn't defined
-                if isinstance(args[index], str):
+                if isinstance(args[index], str) or isinstance(args[index], bytes) :
                     beaconPack.addstr(args[index])
                 elif isinstance(args[index], int):
                     beaconPack.addint(args[index])
