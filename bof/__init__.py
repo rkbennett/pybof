@@ -38,17 +38,17 @@ def run(data: bytes, function: str="go", format: str=None, args: list=[], raw: b
     Args:
         data (bytes): data content of BOF file
         function (str): target BOF function to execute (defaults to "go")
-        format (str): A string that defines the packing format of the supplied args (similar to struct.pack, only accepts 'w' for wide, 's' for string, 'h' for short and 'i' for int)
+        format (str): A string that defines the packing format of the supplied args (similar to struct.pack, only accepts 'Z' for wide, 'z' for string, 's' for short, 'b' for binary, and 'i' for int)
         args (list): A list of args to pass to the target BOF function
         raw (bool): Instructs bof.run to pass the args as a raw string instead of packing them (cannot be used with format arg) 
     Returns:
         str: The string output of the BOF target function
     """
     if format:
-        valid_formats = ["w","s","i","h"]
+        valid_formats = ["Z","z","i","s","b"]
         # Verify no unexpected format types have been supplied
         if list(set(format).union(valid_formats).symmetric_difference(set(valid_formats))):
-            raise ValueError("format contained invalid format types, only 'w', 's', 'h', and 'i' are permitted")
+            raise ValueError("format contained invalid format types, only 'Z', 'z', 's', 'b', and 'i' are permitted")
     if format and raw:
         raise ValueError("raw cannot be set to True if a format is defined")
     if args and not raw:
@@ -59,13 +59,13 @@ def run(data: bytes, function: str="go", format: str=None, args: list=[], raw: b
         for index in range(0, len(args)):
             if format:
                 # Pack each of the args based on it's corresponding format entry
-                if format[index] == "h":
+                if format[index] == "s":
                     beaconPack.addshort(args[index])
                 elif format[index] == "i":
                     beaconPack.addint(args[index])
-                elif format[index] == "s":
+                elif format[index] == "z" or format[index] == "b":
                     beaconPack.addstr(args[index])
-                elif format[index] == "w":
+                elif format[index] == "Z":
                     beaconPack.addWstr(args[index])
             else:
                 # Default types to string and int if format isn't defined

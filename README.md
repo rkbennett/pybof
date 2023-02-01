@@ -46,12 +46,13 @@ Optional keyword arg which is a list of arguments to pass into the target BOF fu
 ### function
 Optional keyword arg which is the string formatted name of target function to execute from the supplied BOF, this defaults to `go`
 
-### format
+### format (NOTICE - These have recently been updated)
 Optional keyword arg is a string, which informs the BOF argument packer of the argument types as they are packed into the buffer. This is similar to the format arg from `struct.pack`. The only valid format options are as follows:\
 `i` for integer\
-`h` for short\
-`s` for string\
-`w` for wide
+`s` for short\
+`z` for string\
+`b` for binary\
+`Z` for wide
 
 At least one format type must be supplied for each arg in the args list. This keyword arg cannot be used in conjunction with `raw`
 
