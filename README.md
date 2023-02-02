@@ -50,7 +50,7 @@ runner.run(data, args=[r"c:\users"], format="w")
 ```python
 import bof
 from urllib.request import urlopen
-coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
+coffldr = urlopen('http://mysite/path/to/COFFLoader.dll').read()
 runner = bof.BOF(coffldr)
 data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
 runner.run(data, args=[r"c:\users"], format="w")
@@ -102,7 +102,7 @@ cd ..\..\
 python
 >>> import bof
 >>> from urllib.request import urlopen
->>> coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
+>>> coffldr = urlopen('http://mysite/path/to/COFFLoader.dll').read()
 >>> runner = bof.BOF(coffldr)
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
 >>> runner.run(data, args=[r"c:\users"], format="w")
