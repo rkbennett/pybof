@@ -5,16 +5,33 @@ in-memory loading and execution of BOFs
 
 `PyBOF` enables Python3 to load Beacon Object Files via bytes and execute a target BOF function in a Python interpreter
 
+## New in this branch
+### Based on the research by tishina, I have integrated pythonmemorymodule (naksyn) for allowing loading of the COFFLoader from memory
+
 ## Basic Usage
 
-### Run a simple BOF with no required arguments
+### The run function has now been wrapped in a class for persisting COFFLoader function references. Because of this it must now be accessed the following way.
 ```python
+import bof
+coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
+runner = bof.BOF(coffldr)
+```
+
+### Once bof.BOF has been initialized it's run function runs exactly the same as the old run function
+#### Run a simple BOF with no required arguments
+```python
+import bof
+coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
+runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
 bof.run(data)
 ```
 
 ### Pass a raw string argument into BOF
 ```python
+import bof
+coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
+runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
 bof.run(data, args=["foo"], raw=True)
 # Raw cannot be used with function kwarg
@@ -22,6 +39,9 @@ bof.run(data, args=["foo"], raw=True)
 
 ### Pass packed/formatted arguments into BOF
 ```python
+import bof
+coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
+runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
 bof.run(data, args=[r"c:\users"], format="w")
 ```
@@ -30,12 +50,14 @@ bof.run(data, args=[r"c:\users"], format="w")
 ```python
 import bof
 from urllib.request import urlopen
+coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
+runner = bof.BOF(coffldr)
 data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
 bof.run(data, args=[r"c:\users"], format="w")
 ```
 
 ## Args/Kwargs
-There are several args that can be used with PyBOF, they are described in more detail below
+There are several args that can be used with run function from PyBOFs bof.BOF class, they are described in more detail below
 
 ### data
 Mandatory first positional argument which must be a byte object which contains the raw contents of a BOF
@@ -66,23 +88,22 @@ Clone this repo
 git clone https://github.com/rkbennett/pybof.git
 ```
 
-Build the _bof c extension
+Build the COFFLoader dll (mingw in this example)
 ```cmd
-cd pybof\src
-python .\setup.py build
+cd pybof\COFFLoader\source
+x86_64-w64-mingw32-gcc-12.2.0.exe -shared -Wall -DBUILD_DLL COFFLoader.c beacon_compatibility.c APIResolve.c -o COFFLoader.x64.dll
 ```
 
-Copy the resulting pyd file into the bof directory
-```cmd
-copy build\lib.win-xxx-cpython-3xx\_bof.cp3xx-win_xxxx.pyd ..\bof\
-```
+Place the COFFLoader dll in a location you can access
 
 Change directory to parent of bof directory, import and have fun
 ```cmd
-cd ..\
+cd ..\..\
 python
 >>> import bof
 >>> from urllib.request import urlopen
+>>> coffldr = urlopen('http://mysite/path/to/COFFLoader.dll', 'rb').read()
+>>> runner = bof.BOF(coffldr)
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
 >>> bof.run(data, args=[r"c:\users"], format="w")
 ```
@@ -92,4 +113,6 @@ If a BOF function does not return a value, I raise a warning alerting the user t
 
 ## Special Thanks
 * [natesubra](https://github.com/natesubra) - For answering my random questions
-* [trustedsec](https://github.com/trustedsec) - For the COFFLoader I wrapped into my PyBof module (licensing included in src/source)
+* [trustedsec](https://github.com/trustedsec) - For [COFFLoader](https://github.com/trustedsec/COFFLoader) (The real MVP)
+* [naksyn](https://github.com/naksyn) - For [pythonmemorymodule](https://github.com/naksyn/PythonMemoryModule) (The other MVP)
+* [zimnyaa](https://github.com/zimnyaa) - For the initial pythonmemorymodule integration legwork and pythonmemorymodule modifications to allow returning raw funciton addresses, also a great read here: https://tishina.in/execution/python-inmemory-bof

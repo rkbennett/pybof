@@ -504,47 +504,24 @@ int RunCOFF(char* functionname, unsigned char* coff_data, uint32_t filesize, uns
             return retcode;
 }
 
-#ifdef COFF_STANDALONE
-int main(int argc, char* argv[]) {
-    char* coff_data = NULL;
-    unsigned char* arguments = NULL;
-    int argumentSize = 0;
-#ifdef _WIN32
-    char* outdata = NULL;
-    int outdataSize = 0;
-#endif
-    uint32_t filesize = 0;
-    int checkcode = 0;
-    if (argc < 3) {
-        printf("ERROR: %s go /path/to/object/file.o (arguments)\n", argv[0]);
-        return 1;
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+
+    switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH:
+        break;
+
+    case DLL_PROCESS_DETACH:
+        break;
+
+    case DLL_THREAD_ATTACH:
+        break;
+
+    case DLL_THREAD_DETACH:
+        break;
     }
 
-    coff_data = (char*)getContents(argv[2], &filesize);
-    if (coff_data == NULL) {
-        return 1;
-    }
-    printf("Got contents of COFF file\n");
-    arguments = unhexlify((unsigned char*)argv[3], &argumentSize);
-    printf("Running/Parsing the COFF file\n");
-    checkcode = RunCOFF(argv[1], (unsigned char*)coff_data, filesize, arguments, argumentSize);
-    if (checkcode == 0) {
-#ifdef _WIN32
-        printf("Ran/parsed the coff\n");
-        outdata = BeaconGetOutputData(&outdataSize);
-        if (outdata != NULL) {
-
-            printf("Outdata Below:\n\n%s\n", outdata);
-        }
-#endif
-    }
-    else {
-        printf("Failed to run/parse the COFF file\n");
-    }
-    if (coff_data) {
-        free(coff_data);
-    }
-    return 0;
+    return TRUE;
 }
-
-#endif
