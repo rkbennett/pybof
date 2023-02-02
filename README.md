@@ -43,7 +43,7 @@ import bof
 coffldr = open(r'c:\path\to\COFFLoader.dll', 'rb').read()
 runner = bof.BOF(coffldr)
 data = open(r'c:\path\to\example.o', 'rb').read()
-runner.run(data, args=[r"c:\users"], format="w")
+runner.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Practical example of execution
@@ -53,7 +53,7 @@ from urllib.request import urlopen
 coffldr = urlopen('http://mysite/path/to/COFFLoader.dll').read()
 runner = bof.BOF(coffldr)
 data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
-runner.run(data, args=[r"c:\users"], format="w")
+runner.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Args/Kwargs
@@ -105,7 +105,7 @@ python
 >>> coffldr = urlopen('http://mysite/path/to/COFFLoader.dll').read()
 >>> runner = bof.BOF(coffldr)
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
->>> runner.run(data, args=[r"c:\users"], format="w")
+>>> runner.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Gotchas
