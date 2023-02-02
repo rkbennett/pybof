@@ -23,7 +23,7 @@ bof.run(data, args=["foo"], raw=True)
 ### Pass packed/formatted arguments into BOF
 ```python
 data = open(r'c:\path\to\example.o', 'rb').read()
-bof.run(data, args=[r"c:\users"], format="w")
+bof.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Practical example of execution
@@ -31,7 +31,7 @@ bof.run(data, args=[r"c:\users"], format="w")
 import bof
 from urllib.request import urlopen
 data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
-bof.run(data, args=[r"c:\users"], format="w")
+bof.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Args/Kwargs
@@ -84,7 +84,7 @@ python
 >>> import bof
 >>> from urllib.request import urlopen
 >>> data = urlopen("https://github.com/trustedsec/CS-Situational-Awareness-BOF/raw/master/SA/dir/dir.x64.o").read()
->>> bof.run(data, args=[r"c:\users"], format="w")
+>>> bof.run(data, args=[r"c:\users"], format="Z")
 ```
 
 ## Gotchas
