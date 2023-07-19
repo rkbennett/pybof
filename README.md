@@ -88,12 +88,6 @@ Clone this repo
 git clone https://github.com/rkbennett/pybof.git
 ```
 
-Build the COFFLoader dll (mingw in this example)
-```cmd
-cd pybof\COFFLoader\source
-x86_64-w64-mingw32-gcc-12.2.0.exe -shared -Wall -DBUILD_DLL COFFLoader.c beacon_compatibility.c APIResolve.c -o COFFLoader.x64.dll
-```
-
 Place the COFFLoader dll in a location you can access
 
 Change directory to parent of bof directory, import and have fun
