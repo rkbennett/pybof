@@ -80,4 +80,7 @@ def run(data: bytes, function: str="go", format: str=None, args: list=[], raw: b
     else:
         # There were no args, so pass None
         packArgs = None
-    return bof_runner(function, data, packArgs)
+    try:
+        return bof_runner(function, data, packArgs).decode()
+    except UnicodeDecodeError:
+        return bof_runner(function, data, packArgs).decode("cp1252")

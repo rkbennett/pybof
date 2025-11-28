@@ -38,8 +38,8 @@ run(PyObject *self, PyObject *args)
 	if (resp == 0) {
 		outdata = BeaconGetOutputData(&outdataSize);
 		if (outdata != NULL) {
-			return PyUnicode_FromString(outdata);
-        }
+			return PyBytes_FromStringAndSize(outdata, outdataSize);
+        	}
 	} 
 	PyErr_WarnEx(PyExc_RuntimeError, "BOF had no return value", 1);
 	return PyUnicode_FromString("");
